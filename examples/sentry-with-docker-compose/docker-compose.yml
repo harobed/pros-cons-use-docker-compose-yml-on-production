@@ -37,6 +37,7 @@ services:
   sentry_redis:
     image: redis:4.0-alpine
     restart: unless-stopped
+
   wait_sentry_redis:
     image: "waisbrot/wait"
     environment:
@@ -50,7 +51,7 @@ services:
       - POSTGRES_USER=sentry
       - POSTGRES_DB=sentry
     volumes:
-      - ./postgresql-data:/var/lib/postgresql/data
+      - /var/lib/sentry-postgresql/:/var/lib/postgresql/data
 
   wait_sentry_postgres:
     image: "waisbrot/wait"

@@ -34,7 +34,7 @@ $ ssh root@yourserver
 		--email user@example.com \
 		--password password \
 		--superuser --no-input
-# docker-compose up -d sentry cron worker sentry_postgres
+# docker-compose up -d sentry cron worker
 ```
 
 
@@ -59,5 +59,10 @@ Update Docker image version in `docker-compose.yml`.
 $ ssh root@yourserver
 # cd /opt/sentry/
 # docker-compose down
-# rm -rf /postgresql-data
+```
+
+Delete database content:
+
+```
+# rm -rf /var/lib/sentry-postgresql/
 ```
