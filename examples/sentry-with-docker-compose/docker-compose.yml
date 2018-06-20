@@ -1,0 +1,62 @@
+version: '3'
+services:
+  sentry:
+    image: sentry:9
+    restart: unless-stopped
+    ports:
+     - 9000:9000
+    environment:
+      - SENTRY_SECRET_KEY="%**stxva=es(qsts1z1eu!1uks3r9q8z@w8dh8hm&akv3p9a*s"
+      - SENTRY_REDIS_HOST=sentry_redis
+      - SENTRY_POSTGRES_HOST=sentry_postgres
+      - SENTRY_DB_USER=sentry
+      - SENTRY_DB_PASSWORD=sentry
+
+  cron:
+    image: sentry:9
+    restart: unless-stopped
+    environment:
+      - SENTRY_SECRET_KEY="%**stxva=es(qsts1z1eu!1uks3r9q8z@w8dh8hm&akv3p9a*s"
+      - SENTRY_REDIS_HOST=sentry_redis
+      - SENTRY_POSTGRES_HOST=sentry_postgres
+      - SENTRY_DB_USER=sentry
+      - SENTRY_DB_PASSWORD=sentry
+    command: run cron
+
+  worker:
+    image: sentry:9
+    restart: unless-stopped
+    environment:
+      - SENTRY_SECRET_KEY="%**stxva=es(qsts1z1eu!1uks3r9q8z@w8dh8hm&akv3p9a*s"
+      - SENTRY_REDIS_HOST=sentry_redis
+      - SENTRY_POSTGRES_HOST=sentry_postgres
+      - SENTRY_DB_USER=sentry
+      - SENTRY_DB_PASSWORD=sentry
+    command: run worker
+
+  sentry_redis:
+    image: redis:4.0-alpine
+    restart: unless-stopped
+  wait_sentry_redis:
+    image: "waisbrot/wait"
+    environment:
+      TARGETS: sentry_redis:6379
+
+  sentry_postgres:
+    image: postgres:10.4-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=sentry
+      - POSTGRES_USER=sentry
+      - POSTGRES_DB=sentry
+    volumes:
+      - ./postgresql-data:/var/lib/postgresql/data
+
+  wait_sentry_postgres:
+    image: "waisbrot/wait"
+    environment:
+      TARGETS: sentry_postgres:5432
+
+networks:
+  default:
+    driver: bridge
