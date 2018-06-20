@@ -52,7 +52,7 @@ Technically [docker-compose](https://docs.docker.com/compose/compose-file/) is a
 
 ### Development "docker-compose.yml" guidelines
 
-* In development `docker-compose.yml` developer: use volumes to mount its source code to dynamicaly update it ([example](https://github.com/harobed/goworkspace/blob/master/docker-compose.yml#L10))
+* In development `docker-compose.yml` developer: use volumes to mount its source code to dynamically update it ([example](https://github.com/harobed/goworkspace/blob/master/docker-compose.yml#L10))
 * In development `docker-compose.yml` developer: use `docker-compose build` to rebuild development Docker image
 
 
@@ -68,7 +68,7 @@ Technically [docker-compose](https://docs.docker.com/compose/compose-file/) is a
     webapp:
       build: ./dir  # Never use it in production
   ```
-  
+
   * `docker-compose build` is never executed on production server
   * Always pull image from trusted public or private Docker registry
 * Where building Docker image?
