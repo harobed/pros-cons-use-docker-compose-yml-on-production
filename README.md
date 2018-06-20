@@ -11,7 +11,7 @@ Technically [docker-compose](https://docs.docker.com/compose/compose-file/) is a
 
 * if **docker engine** is stable then **docker-compose** is stable
 
-**docker-compose.ym** pros:
+**docker-compose.yml** pros:
 
 * user can test easly `docker-compose.yml` locally
 * only one syntax to understand for development and production `docker-compose.yml`
